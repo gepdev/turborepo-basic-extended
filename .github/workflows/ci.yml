@@ -30,3 +30,25 @@ jobs:
       - name: Validate PR commit
         if: github.event_name == 'pull_request'
         run: npx commitlint --from ${{ github.event.pull_request.head.sha }}~${{ github.event.pull_request.commits }} --to ${{ github.event.pull_request.head.sha }} --verbose
+  chromatic-deployment:
+    name: Storybook Chromatic Deployment
+    needs: [commitlint]
+    if: github.event_name == 'push'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+      - name: Setup Nodejs
+        uses: actions/setup-node@v3
+        with:
+          node-version: 16
+      - name: Install dependencies
+        run: pnpm install
+        working-directory: apps/design-system
+      - name: Publish to Chromatic
+        uses: chromaui/action@v1
+        with:
+          workingDir: apps/design-system
+          projectToken: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
