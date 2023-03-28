@@ -45,7 +45,9 @@ jobs:
         with:
           node-version: 16
       - name: Install dependencies
-        run: pnpm install
+        run: |
+          npm install -g pnpm
+          pnpm install
         working-directory: apps/design-system
       - name: Publish to Chromatic
         uses: chromaui/action@v1
