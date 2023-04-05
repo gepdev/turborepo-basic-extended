@@ -6,7 +6,7 @@ export default function Web() {
     <>
     <Head>
       <meta name="og:title" content="Title di prova" />
-      <meta name="og:url" content="https://master.d2nmw557tj47ph.amplifyapp.com/about.html" />
+      <meta name="og:url" content="https://master.d2nmw557tj47ph.amplifyapp.com/about" />
     </Head>
       <h1>Web</h1>
       <Button />
